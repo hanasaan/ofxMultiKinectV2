@@ -11,7 +11,6 @@
 		6D7CBE9719F0305D004392D0 /* usb-1.0.0-superspeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D7CBE6019F0305D004392D0 /* usb-1.0.0-superspeed.a */; };
 		6D7CBE9819F0305D004392D0 /* ofProtonect2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE7A19F0305D004392D0 /* ofProtonect2.cpp */; };
 		6D7CBE9919F0305D004392D0 /* command_transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE7D19F0305D004392D0 /* command_transaction.cpp */; };
-		6D7CBE9A19F0305D004392D0 /* cpu_depth_packet_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE7E19F0305D004392D0 /* cpu_depth_packet_processor.cpp */; };
 		6D7CBE9B19F0305D004392D0 /* depth_packet_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE7F19F0305D004392D0 /* depth_packet_processor.cpp */; };
 		6D7CBE9C19F0305D004392D0 /* depth_packet_stream_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE8019F0305D004392D0 /* depth_packet_stream_parser.cpp */; };
 		6D7CBE9D19F0305D004392D0 /* double_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE8119F0305D004392D0 /* double_buffer.cpp */; };
@@ -121,7 +120,6 @@
 		6D7CBE7A19F0305D004392D0 /* ofProtonect2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofProtonect2.cpp; sourceTree = "<group>"; };
 		6D7CBE7B19F0305D004392D0 /* ofProtonect2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofProtonect2.h; sourceTree = "<group>"; };
 		6D7CBE7D19F0305D004392D0 /* command_transaction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = command_transaction.cpp; sourceTree = "<group>"; };
-		6D7CBE7E19F0305D004392D0 /* cpu_depth_packet_processor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_depth_packet_processor.cpp; sourceTree = "<group>"; };
 		6D7CBE7F19F0305D004392D0 /* depth_packet_processor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = depth_packet_processor.cpp; sourceTree = "<group>"; };
 		6D7CBE8019F0305D004392D0 /* depth_packet_stream_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = depth_packet_stream_parser.cpp; sourceTree = "<group>"; };
 		6D7CBE8119F0305D004392D0 /* double_buffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = double_buffer.cpp; sourceTree = "<group>"; };
@@ -380,7 +378,6 @@
 			isa = PBXGroup;
 			children = (
 				6D7CBE7D19F0305D004392D0 /* command_transaction.cpp */,
-				6D7CBE7E19F0305D004392D0 /* cpu_depth_packet_processor.cpp */,
 				6D7CBE7F19F0305D004392D0 /* depth_packet_processor.cpp */,
 				6D7CBE8019F0305D004392D0 /* depth_packet_stream_parser.cpp */,
 				6D7CBE8119F0305D004392D0 /* double_buffer.cpp */,
@@ -594,7 +591,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D7CBE9A19F0305D004392D0 /* cpu_depth_packet_processor.cpp in Sources */,
 				6D7CBE9919F0305D004392D0 /* command_transaction.cpp in Sources */,
 				6D7CBE9619F0305D004392D0 /* ofxMultiKinectV2.cpp in Sources */,
 				6D7CBEA419F0305D004392D0 /* rgb_packet_stream_parser.cpp in Sources */,
@@ -767,10 +763,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
-					/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxKinectV2Sender/libs/libusb/lib/osx,
-					/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxOpenCv/libs/opencv/lib/osx,
-					"/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
-					/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxMultiKinectV2/libs/libusb/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
@@ -857,10 +849,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
-					/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxKinectV2Sender/libs/libusb/lib/osx,
-					/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxOpenCv/libs/opencv/lib/osx,
-					"/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
-					/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxMultiKinectV2/libs/libusb/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
