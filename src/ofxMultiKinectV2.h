@@ -22,8 +22,9 @@ public:
     ofxMultiKinectV2();
     ~ofxMultiKinectV2();
     
-    static int getDeviceCount();
+    int getDeviceCount();
     void open(bool enableColor = true, bool enableIr = true, int deviceIndex = 0);
+    void start();
     void update();
     void close();
     

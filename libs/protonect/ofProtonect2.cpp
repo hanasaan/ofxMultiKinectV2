@@ -166,14 +166,14 @@ DepthPacketProcessor *ofPacketPipeline::getDepthPacketProcessor() const
 }
 
 //----------------------------------------------------------------
-
-bool ofProtonect2::open(int deviceIndex, int mode ) {
+bool ofProtonect2::open(int deviceIndex, int mode )
+{
     if (bOpen) {
         return false;
     }
     
     pipeline = new ofPacketPipeline();
-    dev = freenect2->openDevice(deviceIndex, pipeline);
+    dev = freenect2.openDevice(deviceIndex, pipeline);
     
     if (dev == 0)
     {
@@ -185,13 +185,21 @@ bool ofProtonect2::open(int deviceIndex, int mode ) {
     
     dev->setColorFrameListener(listener);
     dev->setIrAndDepthFrameListener(listener);
+    dev->prepareStart();
+
+    bOpen = true;
+    return true;
+}
+
+
+void ofProtonect2::start() {
+    if (!bOpen) {
+        return;
+    }
     dev->start();
     
     std::cout << "device serial: " << dev->getSerialNumber() << std::endl;
     std::cout << "device firmware: " << dev->getFirmwareVersion() << std::endl;
-    
-    bOpen = true;
-    return true;
 }
 
 void ofProtonect2::update() {
@@ -225,11 +233,6 @@ void ofProtonect2::close() {
         // TODO: bad things will happen, if frame listeners are freed before dev->stop() :(
         dev->stop();
         dev->close();
-
-        delete listener;
-        listener = NULL;
-        delete dev;
-        dev = NULL;
         pipeline = NULL;
     }
     bOpen = false;

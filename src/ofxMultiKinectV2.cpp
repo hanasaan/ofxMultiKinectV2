@@ -325,7 +325,7 @@ ofxMultiKinectV2::~ofxMultiKinectV2()
 
 int ofxMultiKinectV2::getDeviceCount()
 {
-    return Freenect2Instance::getFreenect2().enumerateDevices();
+    return protonect2->getDeviceCount();
 }
 
 void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex)
@@ -352,9 +352,18 @@ void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex)
     
     lastFrameNo = -1;
     
-    startThread();
     
     bOpened = true;
+}
+
+void ofxMultiKinectV2::start()
+{
+    if (!bOpened) {
+        return;
+    }
+    protonect2->start();
+    
+    startThread();
 }
 
 void ofxMultiKinectV2::threadedFunction()
@@ -371,13 +380,14 @@ void ofxMultiKinectV2::threadedFunction()
 #else
             ofLoadImage(colorPixBack, tmp);
 #endif
-            colorPixFront.swap(colorPixBack);
         }
         
+        lock();
         jpegFront.swap(jpegBack);
         irFront.swap(irBack);
-        
-        lock();
+        if (bEnableJpegDecode && jpegBack.size()) {
+            colorPixFront.swap(colorPixBack);
+        }
         bNewBuffer = true;
         unlock();
         
@@ -414,7 +424,7 @@ void ofxMultiKinectV2::update()
 void ofxMultiKinectV2::close()
 {
     if( bOpened ){
-        waitForThread(true);
+        waitForThread(true, 3000);
         protonect2->close();
         bOpened = false;
     }

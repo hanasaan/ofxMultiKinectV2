@@ -63,6 +63,7 @@ public:
   virtual void setColorFrameListener(libfreenect2::FrameListener* rgb_frame_listener) = 0;
   virtual void setIrAndDepthFrameListener(libfreenect2::FrameListener* ir_frame_listener) = 0;
 
+  virtual void prepareStart() = 0;
   virtual void start() = 0;
   virtual void stop() = 0;
   virtual void close() = 0;

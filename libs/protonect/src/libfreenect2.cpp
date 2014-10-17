@@ -52,6 +52,7 @@ private:
   {
     Created,
     Open,
+    PrepareStart,
     Streaming,
     Closed
   };
@@ -93,6 +94,7 @@ public:
 
   virtual void setColorFrameListener(libfreenect2::FrameListener* rgb_frame_listener);
   virtual void setIrAndDepthFrameListener(libfreenect2::FrameListener* ir_frame_listener);
+  virtual void prepareStart();
   virtual void start();
   virtual void stop();
   virtual void close();
@@ -197,6 +199,7 @@ public:
 
   void clearDevices()
   {
+      std::cout << "[Freenect2Impl] after deleting all devices the internal device list should be empty!" << std::endl;
     DeviceVector devices(devices_.begin(), devices_.end());
 
     for(DeviceVector::iterator it = devices.begin(); it != devices.end(); ++it)
@@ -336,7 +339,10 @@ Freenect2DeviceImpl::~Freenect2DeviceImpl()
   close();
   context_->removeDevice(this);
 
-  delete pipeline_;
+    if (pipeline_) {
+        delete pipeline_;
+        pipeline_ = NULL;
+    }
 }
 
 int Freenect2DeviceImpl::nextCommandSeq()
@@ -432,58 +438,70 @@ bool Freenect2DeviceImpl::open()
   return true;
 }
 
+void Freenect2DeviceImpl::prepareStart()
+{
+    std::cout << "[Freenect2DeviceImpl] start preparing..." << std::endl;
+    if(state_ != Open) return;
+    
+    CommandTransaction::Result serial_result, firmware_result, result;
+    
+    usb_control_.setVideoTransferFunctionState(UsbControl::Enabled);
+    
+    command_tx_.execute(ReadFirmwareVersionsCommand(nextCommandSeq()), firmware_result);
+    firmware_ = FirmwareVersionResponse(firmware_result.data, firmware_result.length).toString();
+    
+    command_tx_.execute(ReadData0x14Command(nextCommandSeq()), result);
+    std::cout << "[Freenect2DeviceImpl] ReadData0x14 response" << std::endl;
+    std::cout << GenericResponse(result.data, result.length).toString() << std::endl;
+    
+    command_tx_.execute(ReadSerialNumberCommand(nextCommandSeq()), serial_result);
+    std::string new_serial = SerialNumberResponse(serial_result.data, serial_result.length).toString();
+    
+    if(serial_ != new_serial)
+    {
+        std::cout << "[Freenect2DeviceImpl] serial number reported by libusb " << serial_ << " differs from serial number " << new_serial << " in device protocol! " << std::endl;
+    }
+    
+    command_tx_.execute(ReadDepthCameraParametersCommand(nextCommandSeq()), result);
+    DepthCameraParamsResponse *ir_p = reinterpret_cast<DepthCameraParamsResponse *>(result.data);
+    
+    ir_camera_params_.fx = ir_p->fx;
+    ir_camera_params_.fy = ir_p->fy;
+    ir_camera_params_.cx = ir_p->cx;
+    ir_camera_params_.cy = ir_p->cy;
+    ir_camera_params_.k1 = ir_p->k1;
+    ir_camera_params_.k2 = ir_p->k2;
+    ir_camera_params_.k3 = ir_p->k3;
+    ir_camera_params_.p1 = ir_p->p1;
+    ir_camera_params_.p2 = ir_p->p2;
+    
+    command_tx_.execute(ReadP0TablesCommand(nextCommandSeq()), result);
+    if(pipeline_->getDepthPacketProcessor() != 0)
+        pipeline_->getDepthPacketProcessor()->loadP0TablesFromCommandResponse(result.data, result.length);
+    
+    command_tx_.execute(ReadRgbCameraParametersCommand(nextCommandSeq()), result);
+    RgbCameraParamsResponse *rgb_p = reinterpret_cast<RgbCameraParamsResponse *>(result.data);
+    
+    rgb_camera_params_.fx = rgb_p->intrinsics[0];
+    rgb_camera_params_.fy = rgb_p->intrinsics[0];
+    rgb_camera_params_.cx = rgb_p->intrinsics[1];
+    rgb_camera_params_.cy = rgb_p->intrinsics[2];
+    
+    command_tx_.execute(ReadStatus0x090000Command(nextCommandSeq()), result);
+    std::cout << "[Freenect2DeviceImpl] ReadStatus0x090000 response" << std::endl;
+    std::cout << GenericResponse(result.data, result.length).toString() << std::endl;
+
+    state_ = PrepareStart;
+    std::cout << "[Freenect2DeviceImpl] start prepareed" << std::endl;
+
+}
+    
 void Freenect2DeviceImpl::start()
 {
   std::cout << "[Freenect2DeviceImpl] starting..." << std::endl;
-  if(state_ != Open) return;
+  if(state_ != PrepareStart) return;
 
   CommandTransaction::Result serial_result, firmware_result, result;
-
-  usb_control_.setVideoTransferFunctionState(UsbControl::Enabled);
-
-  command_tx_.execute(ReadFirmwareVersionsCommand(nextCommandSeq()), firmware_result);
-  firmware_ = FirmwareVersionResponse(firmware_result.data, firmware_result.length).toString();
-
-  command_tx_.execute(ReadData0x14Command(nextCommandSeq()), result);
-  std::cout << "[Freenect2DeviceImpl] ReadData0x14 response" << std::endl;
-  std::cout << GenericResponse(result.data, result.length).toString() << std::endl;
-
-  command_tx_.execute(ReadSerialNumberCommand(nextCommandSeq()), serial_result);
-  std::string new_serial = SerialNumberResponse(serial_result.data, serial_result.length).toString();
-
-  if(serial_ != new_serial)
-  {
-    std::cout << "[Freenect2DeviceImpl] serial number reported by libusb " << serial_ << " differs from serial number " << new_serial << " in device protocol! " << std::endl;
-  }
-
-  command_tx_.execute(ReadDepthCameraParametersCommand(nextCommandSeq()), result);
-  DepthCameraParamsResponse *ir_p = reinterpret_cast<DepthCameraParamsResponse *>(result.data);
-
-  ir_camera_params_.fx = ir_p->fx;
-  ir_camera_params_.fy = ir_p->fy;
-  ir_camera_params_.cx = ir_p->cx;
-  ir_camera_params_.cy = ir_p->cy;
-  ir_camera_params_.k1 = ir_p->k1;
-  ir_camera_params_.k2 = ir_p->k2;
-  ir_camera_params_.k3 = ir_p->k3;
-  ir_camera_params_.p1 = ir_p->p1;
-  ir_camera_params_.p2 = ir_p->p2;
-
-  command_tx_.execute(ReadP0TablesCommand(nextCommandSeq()), result);
-  if(pipeline_->getDepthPacketProcessor() != 0)
-    pipeline_->getDepthPacketProcessor()->loadP0TablesFromCommandResponse(result.data, result.length);
-
-  command_tx_.execute(ReadRgbCameraParametersCommand(nextCommandSeq()), result);
-  RgbCameraParamsResponse *rgb_p = reinterpret_cast<RgbCameraParamsResponse *>(result.data);
-
-  rgb_camera_params_.fx = rgb_p->intrinsics[0];
-  rgb_camera_params_.fy = rgb_p->intrinsics[0];
-  rgb_camera_params_.cx = rgb_p->intrinsics[1];
-  rgb_camera_params_.cy = rgb_p->intrinsics[2];
-
-  command_tx_.execute(ReadStatus0x090000Command(nextCommandSeq()), result);
-  std::cout << "[Freenect2DeviceImpl] ReadStatus0x090000 response" << std::endl;
-  std::cout << GenericResponse(result.data, result.length).toString() << std::endl;
 
   command_tx_.execute(InitStreamsCommand(nextCommandSeq()), result);
 
@@ -517,7 +535,7 @@ void Freenect2DeviceImpl::start()
   ir_transfer_pool_.enableSubmission();
 
   std::cout << "[Freenect2DeviceImpl] submitting usb transfers..." << std::endl;
-  rgb_transfer_pool_.submit(5);
+  rgb_transfer_pool_.submit(10);
   ir_transfer_pool_.submit(60);
 
   state_ = Streaming;

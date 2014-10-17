@@ -40,6 +40,8 @@ public:
         
         kinect0.open(true, true, 0);
         kinect1.open(true, true, 1);
+        kinect0.start();
+        kinect1.start();
     }
     
     void update() {

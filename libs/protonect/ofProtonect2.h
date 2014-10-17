@@ -12,19 +12,12 @@
 #include <libfreenect2/packet_pipeline.h>
 #include <libfreenect2/protocol/response.h>
 
-class Freenect2Instance {
-public:
-    static libfreenect2::Freenect2& getFreenect2() {
-        static libfreenect2::Freenect2 freenect2;
-        return freenect2;
-    }
-};
-
 class ofProtonect2 {
 public:
     ofProtonect2() :
-    dev(NULL), listener(NULL), bOpen(false), pipeline(NULL), freenect2(&Freenect2Instance::getFreenect2()) {}
+    dev(NULL), listener(NULL), bOpen(false), pipeline(NULL) {}
     bool open(int deviceIndex = 0, int mode = libfreenect2::Frame::Ir | libfreenect2::Frame::Color);
+    void start(); // controllig this is important for avoiding interference...?
     void update();
     void close();
     bool isOpen() {return bOpen;}
@@ -35,9 +28,10 @@ public:
         return rawir;
     }
     void loadP0Texture(ofTexture* tex) const;
+    int getDeviceCount() {return freenect2.enumerateDevices();}
 protected:
     libfreenect2::FrameMap frames;
-    libfreenect2::Freenect2* freenect2;
+    libfreenect2::Freenect2 freenect2;
     libfreenect2::Freenect2Device *dev;
     libfreenect2::SyncMultiFrameListener *listener;
     libfreenect2::PacketPipeline *pipeline;
