@@ -243,6 +243,7 @@ public:
         // filter 1
         if (bEnableBilateralFilter) {
             filter1_fbo.begin();
+            ofClear(0);
             filter1.begin();
             {
                 updateShaderParameters(filter1);
@@ -257,6 +258,7 @@ public:
         
         // stage 2
         stage2_fbo.begin();
+        ofClear(0);
         stage2.begin();
         {
             updateShaderParameters(stage2);
@@ -275,6 +277,7 @@ public:
         // filter 2
         if (bEnableEdgeAwareFilter) {
             filter2_fbo.begin();
+            ofClear(0);
             filter2.begin();
             {
                 updateShaderParameters(filter2);
