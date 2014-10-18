@@ -29,6 +29,14 @@ public:
     }
     void loadP0Texture(ofTexture* tex) const;
     int getDeviceCount() {return freenect2.enumerateDevices();}
+    libfreenect2::Freenect2Device::ColorCameraParams getColorCameraParams() {
+        if (!dev) {return;}
+        return dev->getColorCameraParams();
+    }
+    libfreenect2::Freenect2Device::IrCameraParams getIrCameraParams() {
+        if (!dev) {return;}
+        return dev->getIrCameraParams();
+    }
 protected:
     libfreenect2::FrameMap frames;
     libfreenect2::Freenect2 freenect2;
