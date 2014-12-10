@@ -127,8 +127,8 @@ public:
         input_data_2.allocate(352, 424 * 5, GL_R16);
         input_data_2.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
         
-        stage1_infrared.allocate(512, 424, GL_R16);
-        
+		stage1_infrared.allocate(512, 424, GL_RGB, ofGetUsingArbTex(), GL_LUMINANCE, GL_UNSIGNED_SHORT);
+		
         ofFbo::Settings settings;
         settings.width = 512;
         settings.height = 424;
