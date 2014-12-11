@@ -137,7 +137,7 @@ public:
         settings.maxFilter = GL_NEAREST;
         settings.minFilter = GL_NEAREST;
         stage1_fbo.allocate(settings);
-        stage1_fbo.attachTexture(stage1_infrared, GL_R32F, 3);
+        stage1_fbo.attachTexture(stage1_infrared, GL_R16, 3);
         
         stage2_fbo.allocate(512, 424, GL_R16);
         stage2_fbo.getTextureReference().setTextureMinMagFilter(GL_LINEAR, GL_LINEAR);
