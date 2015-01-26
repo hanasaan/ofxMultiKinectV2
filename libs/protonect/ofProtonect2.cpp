@@ -5,6 +5,8 @@
 #include "ofProtonect2.h"
 
 #include <libfreenect2/async_packet_processor.h>
+#include <libfreenect2/depth_packet_processor.h>
+
 
 using namespace libfreenect2;
 
@@ -108,7 +110,7 @@ private:
     DepthPacketProcessor *depth_processor_;
     BaseDepthPacketProcessor *async_depth_processor_;
 public:
-    ofPacketPipeline();
+    ofPacketPipeline(int cldeviceindex);
     virtual ~ofPacketPipeline();
     
     virtual PacketParser *getRgbPacketParser() const;
@@ -120,14 +122,28 @@ public:
 
 //----------------------------------------------------------------
 
-ofPacketPipeline::ofPacketPipeline()
+ofPacketPipeline::ofPacketPipeline(int cldeviceindex)
 {
     rgb_parser_ = new RgbPacketStreamParser();
     depth_parser_ = new DepthPacketStreamParser();
     
     rgb_processor_ = new PassThroughRgbPacketProcessor();
-    depth_processor_ = new PassThroughDepthPacketProcessor();
-    
+
+	string binpath = ofToDataPath("");
+	OpenCLDepthPacketProcessor* depth_processor = new OpenCLDepthPacketProcessor("src/opencl_depth_packet_processor.cl", cldeviceindex);
+	depth_processor->load11To16LutFromFile("11to16.bin");
+	depth_processor->loadXTableFromFile("xTable.bin");
+	depth_processor->loadZTableFromFile("zTable.bin");
+	
+	libfreenect2::DepthPacketProcessor::Config config;
+	config.MinDepth = 0.4f;
+	config.MaxDepth = 10.0f;
+	config.EnableBilateralFilter = true;
+	config.EnableEdgeAwareFilter = false;
+	depth_processor->setConfiguration(config);
+	
+	depth_processor_ = depth_processor;
+	
     async_rgb_processor_ = new AsyncPacketProcessor<RgbPacket>(rgb_processor_);
     async_depth_processor_ = new AsyncPacketProcessor<DepthPacket>(depth_processor_);
     
@@ -166,13 +182,13 @@ DepthPacketProcessor *ofPacketPipeline::getDepthPacketProcessor() const
 }
 
 //----------------------------------------------------------------
-bool ofProtonect2::open(int deviceIndex, int mode )
+bool ofProtonect2::open(int deviceIndex, int mode, int clindex)
 {
     if (bOpen) {
         return false;
     }
     
-    pipeline = new ofPacketPipeline();
+    pipeline = new ofPacketPipeline(clindex);
     dev = freenect2.openDevice(deviceIndex, pipeline);
     
     if (dev == 0)
@@ -223,7 +239,15 @@ void ofProtonect2::update() {
             std::copy(irFrame->data, irFrame->data + sz, &rawir.front());
         }
     }
-    
+	{
+		libfreenect2::Frame *depthFrame = frames[libfreenect2::Frame::Depth];
+		if (depthFrame) {
+			int sz = depthFrame->width * depthFrame->height * depthFrame->bytes_per_pixel;
+			rawdepth.resize(sz);
+			std::copy(depthFrame->data, depthFrame->data + sz, &rawdepth.front());
+		}
+	}
+	
     listener->release(frames);
 }
 
@@ -238,18 +262,3 @@ void ofProtonect2::close() {
     bOpen = false;
 }
 
-void ofProtonect2::loadP0Texture(ofTexture* tex) const
-{
-    if (!bOpen || !pipeline) {
-        return;
-    }
-    
-    PassThroughDepthPacketProcessor* depthProcessor = (PassThroughDepthPacketProcessor*) pipeline->getDepthPacketProcessor();
-    
-    if (depthProcessor->p0tableInvalidated) {
-        for(int i = 0; i < 3; ++i)
-            tex[i].loadData(depthProcessor->p0tablepx[i]);
-
-        depthProcessor->p0tableInvalidated = false;
-    }
-}

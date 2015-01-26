@@ -27,7 +27,8 @@
 #ifndef PACKET_PIPELINE_H_
 #define PACKET_PIPELINE_H_
 
-#include <libfreenect2/usb/transfer_pool.h>
+#include <libfreenect2/config.h>
+#include <libfreenect2/data_callback.h>
 #include <libfreenect2/rgb_packet_stream_parser.h>
 #include <libfreenect2/depth_packet_stream_parser.h>
 #include <libfreenect2/depth_packet_processor.h>
@@ -36,10 +37,10 @@
 namespace libfreenect2
 {
 
-class PacketPipeline
+class LIBFREENECT2_API PacketPipeline
 {
 public:
-  typedef libfreenect2::usb::TransferPool::DataReceivedCallback PacketParser;
+  typedef DataCallback PacketParser;
   virtual ~PacketPipeline();
 
   virtual PacketParser *getRgbPacketParser() const = 0;
@@ -49,9 +50,9 @@ public:
   virtual DepthPacketProcessor *getDepthPacketProcessor() const = 0;
 };
 
-class DefaultPacketPipeline : public PacketPipeline
+class LIBFREENECT2_API BasePacketPipeline : public PacketPipeline
 {
-private:
+protected:
   RgbPacketStreamParser *rgb_parser_;
   DepthPacketStreamParser *depth_parser_;
 
@@ -59,9 +60,11 @@ private:
   BaseRgbPacketProcessor *async_rgb_processor_;
   DepthPacketProcessor *depth_processor_;
   BaseDepthPacketProcessor *async_depth_processor_;
+
+  virtual void initialize();
+  virtual DepthPacketProcessor *createDepthPacketProcessor() = 0;
 public:
-  DefaultPacketPipeline();
-  virtual ~DefaultPacketPipeline();
+  virtual ~BasePacketPipeline();
 
   virtual PacketParser *getRgbPacketParser() const;
   virtual PacketParser *getIrPacketParser() const;
@@ -69,6 +72,39 @@ public:
   virtual RgbPacketProcessor *getRgbPacketProcessor() const;
   virtual DepthPacketProcessor *getDepthPacketProcessor() const;
 };
+
+class LIBFREENECT2_API CpuPacketPipeline : public BasePacketPipeline
+{
+protected:
+  virtual DepthPacketProcessor *createDepthPacketProcessor();
+public:
+  CpuPacketPipeline();
+  virtual ~CpuPacketPipeline();
+};
+
+class LIBFREENECT2_API OpenGLPacketPipeline : public BasePacketPipeline
+{
+protected:
+  bool debug_;
+  virtual DepthPacketProcessor *createDepthPacketProcessor();
+public:
+  OpenGLPacketPipeline(bool debug = false);
+  virtual ~OpenGLPacketPipeline();
+};
+
+#ifdef LIBFREENECT2_WITH_OPENCL_SUPPORT
+class LIBFREENECT2_API OpenCLPacketPipeline : public BasePacketPipeline
+{
+protected:
+  const int deviceId;
+  virtual DepthPacketProcessor *createDepthPacketProcessor();
+public:
+  OpenCLPacketPipeline(const int deviceId = -1);
+  virtual ~OpenCLPacketPipeline();
+};
+#endif // LIBFREENECT2_WITH_OPENCL_SUPPORT
+
+typedef OpenCLPacketPipeline DefaultPacketPipeline;
 
 } /* namespace libfreenect2 */
 #endif /* PACKET_PIPELINE_H_ */

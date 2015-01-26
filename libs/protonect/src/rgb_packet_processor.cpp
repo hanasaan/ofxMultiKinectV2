@@ -28,7 +28,6 @@
 #include <libfreenect2/async_packet_processor.h>
 
 #include <fstream>
-#include <iostream>
 #include <string>
 
 namespace libfreenect2
@@ -58,13 +57,9 @@ DumpRgbPacketProcessor::~DumpRgbPacketProcessor()
 
 void DumpRgbPacketProcessor::process(const RgbPacket &packet)
 {
-    std::cout << "packet!" << std::endl;
-    
-    if(listener_->onNewFrame(Frame::Color, NULL))
-    {
-    }
-
-    
+  //std::stringstream name;
+  //name << packet->sequence << "_" << packet->unknown0 << "_" << jpeg_buffer_length << ".jpeg";
+  //
   //std::ofstream file(name.str().c_str());
   //file.write(reinterpret_cast<char *>(packet->jpeg_buffer), jpeg_buffer_length);
   //file.close();

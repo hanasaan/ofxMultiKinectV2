@@ -13,7 +13,6 @@
 #include "ofxTurboJpeg.h"
 #endif
 
-class DepthProcessor;
 class ofProtonect2;
 
 class ofxMultiKinectV2 : public ofThread
@@ -22,8 +21,8 @@ public:
     ofxMultiKinectV2();
     ~ofxMultiKinectV2();
     
-    int getDeviceCount();
-    void open(bool enableColor = true, bool enableIr = true, int deviceIndex = 0);
+    static int getDeviceCount();
+    void open(bool enableColor = true, bool enableIr = true, int deviceIndex = 0, int oclDeviceIndex = -1);
     void start();
     void update();
     void close();
@@ -31,8 +30,9 @@ public:
     bool isFrameNew();
 
     ofPixels& getColorPixelsRef();
-    ofTexture& getDepthTextureRef();
-    ofTexture& getIrTextureRef();
+	ofFloatPixels& getDepthPixelsRef();
+	ofFloatPixels& getIrPixelsRef();
+	
     const vector<char>& getJpegBuffer();
     
     void setEnableJpegDecode(bool b) {bEnableJpegDecode = b;}
@@ -53,13 +53,16 @@ protected:
     vector<char> jpegFront;
     vector<char> jpegBack;
     
-    vector<char> ir;
-    vector<char> irFront;
-    vector<char> irBack;
-    
-    ofProtonect2* protonect2;
-    DepthProcessor* depthProcessor;
-    
+	ofFloatPixels irPix;
+	ofFloatPixels irPixFront;
+	ofFloatPixels irPixBack;
+	
+	ofFloatPixels depthPix;
+	ofFloatPixels depthPixFront;
+	ofFloatPixels depthPixBack;
+	
+	ofProtonect2* protonect2;
+	
     int lastFrameNo;
     
 #ifdef USE_OFX_TURBO_JPEG

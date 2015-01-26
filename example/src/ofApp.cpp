@@ -9,7 +9,7 @@ STRINGIFY(
     void main()
     {
       vec4 col = texture2DRect(tex, gl_TexCoord[0].xy);
-        float value = col.r * 65535.0;
+		float value = col.r;
         float low1 = 500.0;
         float high1 = 5000.0;
         float low2 = 1.0;
@@ -22,24 +22,53 @@ STRINGIFY(
     }
 );
 
+static string irFragmentShader =
+STRINGIFY(
+    uniform sampler2DRect tex;
+    void main()
+    {
+		vec4 col = texture2DRect(tex, gl_TexCoord[0].xy);
+		float value = col.r / 65535.0;
+		gl_FragColor = vec4(vec3(value), 1.0);
+	}
+);
+
 //========================================================================
 class ofApp : public ofBaseApp{
     ofShader depthShader;
+	ofShader irShader;
+	
     ofxMultiKinectV2 kinect0;
     ofxMultiKinectV2 kinect1;
     ofTexture colorTex0;
     ofTexture colorTex1;
+	ofTexture depthTex0;
+	ofTexture depthTex1;
+	ofTexture irTex0;
+	ofTexture irTex1;
+	
+	int deviceCount;
 public:
     void setup()
     {
         ofSetVerticalSync(true);
-        ofSetFrameRate(30);
+        ofSetFrameRate(60);
         
         depthShader.setupShaderFromSource(GL_FRAGMENT_SHADER, depthFragmentShader);
         depthShader.linkProgram();
         
-        kinect0.open(true, true, 0);
+		irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, irFragmentShader);
+		irShader.linkProgram();
+		
+		deviceCount = ofxMultiKinectV2::getDeviceCount();
+
+		kinect0.open(true, true, 0);
         kinect1.open(true, true, 1);
+		// Note : OpenCL device might not be optimal by default.
+		//        e.g. Intel HD Graphics will be chosen instead of GeForce.
+		//        To avoid it, specify OpenCL device index manually.
+		//        kinect1.open(true, true, 0, 2); // GeForce on MacBookPro Retina
+		
         kinect0.start();
         kinect1.start();
     }
@@ -48,10 +77,14 @@ public:
         kinect0.update();
         if (kinect0.isFrameNew()) {
             colorTex0.loadData(kinect0.getColorPixelsRef());
+			depthTex0.loadData(kinect0.getDepthPixelsRef());
+			irTex0.loadData(kinect0.getIrPixelsRef());
         }
         kinect1.update();
         if (kinect1.isFrameNew()) {
             colorTex1.loadData(kinect1.getColorPixelsRef());
+			depthTex1.loadData(kinect1.getDepthPixelsRef());
+			irTex1.loadData(kinect1.getIrPixelsRef());
         }
     }
     
@@ -62,22 +95,30 @@ public:
 
         if (colorTex0.isAllocated()) {
             colorTex0.draw(0, 0, 640, 360);
-        }
-        if (kinect0.getDepthTextureRef().isAllocated()) {
-            depthShader.begin();
-            kinect0.getDepthTextureRef().draw(0, 360, 512, 424);
-            depthShader.end();
-        }
+		}
+		if (depthTex0.isAllocated()) {
+			depthShader.begin();
+			depthTex0.draw(640, 0, 512, 424);
+			depthShader.end();
+			irShader.begin();
+			irTex0.draw(1152, 0, 512, 424);
+			irShader.end();
+		}
         if (colorTex1.isAllocated()) {
-            colorTex1.draw(640, 0, 640, 360);
+            colorTex1.draw(0, 424, 640, 360);
+		}
+		if (depthTex1.isAllocated()) {
+			depthShader.begin();
+			depthTex0.draw(640, 424, 512, 424);
+			depthShader.end();
+			irShader.begin();
+			irTex0.draw(1152, 424, 512, 424);
+			irShader.end();
         }
-        if (kinect1.getDepthTextureRef().isAllocated()) {
-            depthShader.begin();
-            kinect1.getDepthTextureRef().draw(640, 360, 512, 424);
-            depthShader.end();
-        }
-        
+		
         ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate()), 10, 20);
+		ofDrawBitmapStringHighlight("Device Count : " + ofToString(deviceCount), 10, 40);
+		
     }
     
     void keyPressed(int key)
@@ -96,7 +137,7 @@ public:
 
 //========================================================================
 int main( ){
-	ofSetupOpenGL(1280,800,OF_WINDOW);			// <-------- setup the GL context
+	ofSetupOpenGL(1680,800,OF_WINDOW);			// <-------- setup the GL context
     
 	// this kicks off the running of my app
 	// can be OF_WINDOW or OF_FULLSCREEN

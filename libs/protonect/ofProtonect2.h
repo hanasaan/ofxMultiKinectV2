@@ -16,7 +16,7 @@ class ofProtonect2 {
 public:
     ofProtonect2() :
     dev(NULL), listener(NULL), bOpen(false), pipeline(NULL) {}
-    bool open(int deviceIndex = 0, int mode = libfreenect2::Frame::Ir | libfreenect2::Frame::Color);
+    bool open(int deviceIndex = 0, int mode = libfreenect2::Frame::Depth | libfreenect2::Frame::Ir | libfreenect2::Frame::Color, int clindex = -1);
     void start(); // controllig this is important for avoiding interference...?
     void update();
     void close();
@@ -27,7 +27,9 @@ public:
     const vector<char>& getIrBuffer() const {
         return rawir;
     }
-    void loadP0Texture(ofTexture* tex) const;
+	const vector<char>& getDepthBuffer() const {
+		return rawdepth;
+	}
     int getDeviceCount() {return freenect2.enumerateDevices();}
     libfreenect2::Freenect2Device::ColorCameraParams getColorCameraParams() {
         if (!dev) {return;}
@@ -46,4 +48,5 @@ protected:
     bool bOpen;
     vector<char> jpeg;
     vector<char> rawir;
+	vector<char> rawdepth;
 };

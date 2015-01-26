@@ -31,6 +31,8 @@
 #include <sstream>
 #include <iomanip>
 #include <stdint.h>
+#include <algorithm>
+#include <libfreenect2/config.h>
 
 namespace libfreenect2
 {
@@ -101,10 +103,10 @@ public:
     FWSubsystemVersion max;
     for(int i = 0; i < versions_.size(); ++i)
     {
-      max.major = std::max(max.major, versions_[i].major);
-      max.minor = std::max(max.minor, versions_[i].minor);
-      max.build = std::max(max.build, versions_[i].build);
-      max.revision = std::max(max.revision, versions_[i].revision);
+      max.major = std::max<uint16_t>(max.major, versions_[i].major);
+      max.minor = std::max<uint16_t>(max.minor, versions_[i].minor);
+      max.build = std::max<uint16_t>(max.build, versions_[i].build);
+      max.revision = std::max<uint16_t>(max.revision, versions_[i].revision);
     }
     std::stringstream version_string;
     version_string << max.major << "." << max.minor << "." << max.build << "." << max.revision << "." << versions_.size();
@@ -154,7 +156,7 @@ public:
 };
 
 // probably some combination of color camera intrinsics + depth coefficient tables
-struct __attribute__ ((__packed__)) RgbCameraParamsResponse
+LIBFREENECT2_PACK(struct RgbCameraParamsResponse
 {
   // unknown, always seen as 1 so far
   uint8_t table_id;
@@ -167,11 +169,11 @@ struct __attribute__ ((__packed__)) RgbCameraParamsResponse
   // matches the depth image aspect ratio of 512*424 very closely
   float table1[28 * 23 * 4];
   float table2[28 * 23];
-};
+});
 
 
 // depth camera intrinsic & distortion parameters
-struct __attribute__ ((__packed__)) DepthCameraParamsResponse
+LIBFREENECT2_PACK(struct DepthCameraParamsResponse
 {
   // intrinsics (this is pretty certain)
   float fx;
@@ -188,10 +190,10 @@ struct __attribute__ ((__packed__)) DepthCameraParamsResponse
   float k3;
 
   float unknown1[13]; // assumed to be always zero
-};
+});
 
 // "P0" coefficient tables, input to the deconvolution code
-struct __attribute__ ((__packed__)) P0TablesResponse
+LIBFREENECT2_PACK(struct P0TablesResponse
 {
   uint32_t headersize;
   uint32_t unknown1;
@@ -215,7 +217,7 @@ struct __attribute__ ((__packed__)) P0TablesResponse
   uint16_t unknownC;
 
   uint8_t  unknownD[];
-};
+});
 
 } /* namespace protocol */
 } /* namespace libfreenect2 */

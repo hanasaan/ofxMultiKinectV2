@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D22771B1A762C5000BEF410 /* opencl_depth_packet_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D22771A1A762C5000BEF410 /* opencl_depth_packet_processor.cpp */; };
+		6D22771D1A762D9900BEF410 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22771C1A762D9900BEF410 /* OpenCL.framework */; };
+		6D2277291A762F8E00BEF410 /* ofxTurboJpeg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D2277201A762F8E00BEF410 /* ofxTurboJpeg.cpp */; };
+		6D22772A1A762FA100BEF410 /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2277281A762F8E00BEF410 /* libturbojpeg.dylib */; };
+		6D22772B1A762FA900BEF410 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6D2277281A762F8E00BEF410 /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6D2277311A7663F100BEF410 /* timer_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D22772F1A7663F100BEF410 /* timer_util.cpp */; };
 		6D7CBE9619F0305D004392D0 /* ofxMultiKinectV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE4619F0305D004392D0 /* ofxMultiKinectV2.cpp */; };
 		6D7CBE9719F0305D004392D0 /* usb-1.0.0-superspeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D7CBE6019F0305D004392D0 /* usb-1.0.0-superspeed.a */; };
 		6D7CBE9819F0305D004392D0 /* ofProtonect2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE7A19F0305D004392D0 /* ofProtonect2.cpp */; };
@@ -69,16 +75,24 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */,
+				6D22772B1A762FA900BEF410 /* libturbojpeg.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6D1E258219EFF7EB00454E5F /* filter1.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = filter1.fs; sourceTree = "<group>"; };
-		6D1E258319EFF7EB00454E5F /* filter2.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = filter2.fs; sourceTree = "<group>"; };
-		6D53CFB719EE8E54001F436E /* stage1.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = stage1.fs; sourceTree = "<group>"; };
-		6D53CFB819EE8E54001F436E /* stage2.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = stage2.fs; sourceTree = "<group>"; };
+		6D2277181A762C4700BEF410 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		6D2277191A762C4700BEF410 /* data_callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_callback.h; sourceTree = "<group>"; };
+		6D22771A1A762C5000BEF410 /* opencl_depth_packet_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opencl_depth_packet_processor.cpp; sourceTree = "<group>"; };
+		6D22771C1A762D9900BEF410 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
+		6D2277201A762F8E00BEF410 /* ofxTurboJpeg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTurboJpeg.cpp; sourceTree = "<group>"; };
+		6D2277211A762F8E00BEF410 /* ofxTurboJpeg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTurboJpeg.h; sourceTree = "<group>"; };
+		6D2277251A762F8E00BEF410 /* turbojpeg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = turbojpeg.h; sourceTree = "<group>"; };
+		6D2277281A762F8E00BEF410 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
+		6D22772D1A76313900BEF410 /* cl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cl.hpp; sourceTree = "<group>"; };
+		6D22772F1A7663F100BEF410 /* timer_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer_util.cpp; sourceTree = "<group>"; };
+		6D2277301A7663F100BEF410 /* timer_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer_util.h; sourceTree = "<group>"; };
 		6D7CBE4619F0305D004392D0 /* ofxMultiKinectV2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMultiKinectV2.cpp; sourceTree = "<group>"; };
 		6D7CBE4719F0305D004392D0 /* ofxMultiKinectV2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMultiKinectV2.h; sourceTree = "<group>"; };
 		6D7CBE4B19F0305D004392D0 /* libfreenect2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libfreenect2.h; sourceTree = "<group>"; };
@@ -186,23 +200,82 @@
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
+				6D22771D1A762D9900BEF410 /* OpenCL.framework in Frameworks */,
+				6D22772A1A762FA100BEF410 /* libturbojpeg.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6D53CFB619EE8E54001F436E /* shader */ = {
+		6D22771E1A762F8E00BEF410 /* ofxTurboJpeg */ = {
 			isa = PBXGroup;
 			children = (
-				6D1E258219EFF7EB00454E5F /* filter1.fs */,
-				6D1E258319EFF7EB00454E5F /* filter2.fs */,
-				6D53CFB719EE8E54001F436E /* stage1.fs */,
-				6D53CFB819EE8E54001F436E /* stage2.fs */,
+				6D22771F1A762F8E00BEF410 /* src */,
+				6D2277221A762F8E00BEF410 /* libs */,
 			);
-			name = shader;
-			path = bin/data/shader;
-			sourceTree = SOURCE_ROOT;
+			name = ofxTurboJpeg;
+			sourceTree = "<group>";
+		};
+		6D22771F1A762F8E00BEF410 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6D2277201A762F8E00BEF410 /* ofxTurboJpeg.cpp */,
+				6D2277211A762F8E00BEF410 /* ofxTurboJpeg.h */,
+			);
+			name = src;
+			path = ../../ofxTurboJpeg/src;
+			sourceTree = "<group>";
+		};
+		6D2277221A762F8E00BEF410 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				6D2277231A762F8E00BEF410 /* turbo-jpeg */,
+			);
+			name = libs;
+			path = ../../ofxTurboJpeg/libs;
+			sourceTree = "<group>";
+		};
+		6D2277231A762F8E00BEF410 /* turbo-jpeg */ = {
+			isa = PBXGroup;
+			children = (
+				6D2277241A762F8E00BEF410 /* include */,
+				6D2277261A762F8E00BEF410 /* lib */,
+			);
+			path = "turbo-jpeg";
+			sourceTree = "<group>";
+		};
+		6D2277241A762F8E00BEF410 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				6D2277251A762F8E00BEF410 /* turbojpeg.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		6D2277261A762F8E00BEF410 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				6D2277271A762F8E00BEF410 /* osx */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		6D2277271A762F8E00BEF410 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				6D2277281A762F8E00BEF410 /* libturbojpeg.dylib */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		6D22772C1A76313900BEF410 /* OpenCL */ = {
+			isa = PBXGroup;
+			children = (
+				6D22772D1A76313900BEF410 /* cl.hpp */,
+			);
+			path = OpenCL;
+			sourceTree = "<group>";
 		};
 		6D7CBE4419F0305D004392D0 /* ofxMultiKinectV2 */ = {
 			isa = PBXGroup;
@@ -315,6 +388,7 @@
 		6D7CBE6119F0305D004392D0 /* protonect */ = {
 			isa = PBXGroup;
 			children = (
+				6D22772C1A76313900BEF410 /* OpenCL */,
 				6D7CBE6219F0305D004392D0 /* include */,
 				6D7CBE7A19F0305D004392D0 /* ofProtonect2.cpp */,
 				6D7CBE7B19F0305D004392D0 /* ofProtonect2.h */,
@@ -334,6 +408,8 @@
 		6D7CBE6319F0305D004392D0 /* libfreenect2 */ = {
 			isa = PBXGroup;
 			children = (
+				6D2277181A762C4700BEF410 /* config.h */,
+				6D2277191A762C4700BEF410 /* data_callback.h */,
 				6D7CBE6419F0305D004392D0 /* async_packet_processor.h */,
 				6D7CBE6519F0305D004392D0 /* depth_packet_processor.h */,
 				6D7CBE6619F0305D004392D0 /* depth_packet_stream_parser.h */,
@@ -377,6 +453,7 @@
 		6D7CBE7C19F0305D004392D0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6D22771A1A762C5000BEF410 /* opencl_depth_packet_processor.cpp */,
 				6D7CBE7D19F0305D004392D0 /* command_transaction.cpp */,
 				6D7CBE7F19F0305D004392D0 /* depth_packet_processor.cpp */,
 				6D7CBE8019F0305D004392D0 /* depth_packet_stream_parser.cpp */,
@@ -393,6 +470,8 @@
 				6D7CBE9119F0305D004392D0 /* tinythread */,
 				6D7CBE9419F0305D004392D0 /* transfer_pool.cpp */,
 				6D7CBE9519F0305D004392D0 /* usb_control.cpp */,
+				6D22772F1A7663F100BEF410 /* timer_util.cpp */,
+				6D2277301A7663F100BEF410 /* timer_util.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -422,6 +501,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				6D22771E1A762F8E00BEF410 /* ofxTurboJpeg */,
 				6D7CBE4419F0305D004392D0 /* ofxMultiKinectV2 */,
 			);
 			name = addons;
@@ -430,6 +510,7 @@
 		BBAB23C913894ECA00AA2426 /* system frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D22771C1A762D9900BEF410 /* OpenCL.framework */,
 				E7F985F515E0DE99003869B5 /* Accelerate.framework */,
 				E4C2424410CC5A17004149E2 /* AppKit.framework */,
 				E4C2424510CC5A17004149E2 /* Cocoa.framework */,
@@ -489,7 +570,6 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6D53CFB619EE8E54001F436E /* shader */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 			);
 			path = src;
@@ -592,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D7CBE9919F0305D004392D0 /* command_transaction.cpp in Sources */,
+				6D22771B1A762C5000BEF410 /* opencl_depth_packet_processor.cpp in Sources */,
 				6D7CBE9619F0305D004392D0 /* ofxMultiKinectV2.cpp in Sources */,
 				6D7CBEA419F0305D004392D0 /* rgb_packet_stream_parser.cpp in Sources */,
 				6D7CBEA019F0305D004392D0 /* libfreenect2.cpp in Sources */,
@@ -602,9 +683,11 @@
 				6D7CBEA219F0305D004392D0 /* resource.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				6D7CBEA119F0305D004392D0 /* packet_pipeline.cpp in Sources */,
+				6D2277311A7663F100BEF410 /* timer_util.cpp in Sources */,
 				6D7CBE9D19F0305D004392D0 /* double_buffer.cpp in Sources */,
 				6D7CBE9E19F0305D004392D0 /* event_loop.cpp in Sources */,
 				6D7CBE9B19F0305D004392D0 /* depth_packet_processor.cpp in Sources */,
+				6D2277291A762F8E00BEF410 /* ofxTurboJpeg.cpp in Sources */,
 				6D7CBEA719F0305D004392D0 /* usb_control.cpp in Sources */,
 				6D7CBE9C19F0305D004392D0 /* depth_packet_stream_parser.cpp in Sources */,
 				6D7CBEA319F0305D004392D0 /* rgb_packet_processor.cpp in Sources */,
@@ -763,6 +846,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
+					"/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
@@ -849,6 +933,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+					"/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
