@@ -18,8 +18,9 @@ Depends:
 - ofxTurboJpeg
   - Satoru Higa's version: https://github.com/satoruhiga/ofxTurboJpeg
   - To disable ofxTurboJpeg, comment out (it might cause low fps) :
-  > #define USE_OFX_TURBO_JPEG
-
+  
+  `#define USE_OFX_TURBO_JPEG`
+  
 Notes:
 - The requirement is almost same as ofxKinectV2 https://github.com/ofTheo/ofxKinectV2
   - Check the notes above first.
