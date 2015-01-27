@@ -37,6 +37,8 @@ public:
     
     void setEnableJpegDecode(bool b) {bEnableJpegDecode = b;}
     bool isEnableJpegDecode() {return bEnableJpegDecode;}
+	
+	ofProtonect2* getProtonect() {return protonect2;}
 protected:
     void threadedFunction();
     

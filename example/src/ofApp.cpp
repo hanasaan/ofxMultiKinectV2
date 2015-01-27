@@ -46,8 +46,6 @@ class ofApp : public ofBaseApp{
 	ofTexture depthTex1;
 	ofTexture irTex0;
 	ofTexture irTex1;
-	
-	int deviceCount;
 public:
     void setup()
     {
@@ -60,14 +58,13 @@ public:
 		irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, irFragmentShader);
 		irShader.linkProgram();
 		
-		deviceCount = ofxMultiKinectV2::getDeviceCount();
-
 		kinect0.open(true, true, 0);
         kinect1.open(true, true, 1);
-		// Note : OpenCL device might not be optimal by default.
-		//        e.g. Intel HD Graphics will be chosen instead of GeForce.
-		//        To avoid it, specify OpenCL device index manually.
-		//        kinect1.open(true, true, 0, 2); // GeForce on MacBookPro Retina
+		// Note :
+		// Default OpenCL device might not be optimal.
+		// e.g. Intel HD Graphics will be chosen instead of GeForce.
+		// To avoid it, specify OpenCL device index manually like following.
+		// kinect1.open(true, true, 0, 2); // GeForce on MacBookPro Retina
 		
         kinect0.start();
         kinect1.start();
@@ -87,8 +84,7 @@ public:
 			irTex1.loadData(kinect1.getIrPixelsRef());
         }
     }
-    
-    
+	
     void draw()
     {
         ofClear(0);
@@ -109,30 +105,16 @@ public:
 		}
 		if (depthTex1.isAllocated()) {
 			depthShader.begin();
-			depthTex0.draw(640, 424, 512, 424);
+			depthTex1.draw(640, 424, 512, 424);
 			depthShader.end();
 			irShader.begin();
-			irTex0.draw(1152, 424, 512, 424);
+			irTex1.draw(1152, 424, 512, 424);
 			irShader.end();
         }
 		
         ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate()), 10, 20);
-		ofDrawBitmapStringHighlight("Device Count : " + ofToString(deviceCount), 10, 40);
-		
+		ofDrawBitmapStringHighlight("Device Count : " + ofToString(ofxMultiKinectV2::getDeviceCount()), 10, 40);
     }
-    
-    void keyPressed(int key)
-    {
-    }
-    void keyReleased(int key) {}
-    void mouseMoved(int x, int y ) {}
-    void mouseDragged(int x, int y, int button) {}
-    void mousePressed(int x, int y, int button) {}
-    void mouseReleased(int x, int y, int button) {}
-    void windowResized(int w, int h) {}
-    void dragEvent(ofDragInfo dragInfo) {}
-    void gotMessage(ofMessage msg) {}
-    
 };
 
 //========================================================================

@@ -29,10 +29,14 @@ ofxMultiKinectV2::~ofxMultiKinectV2()
 
 int ofxMultiKinectV2::getDeviceCount()
 {
-	ofProtonect2* protonect2 = new ofProtonect2();
-	int cnt = protonect2->getDeviceCount();
-	delete protonect2;
-	return cnt;
+	static int cnt_static = -1;
+	if (cnt_static == -1) {
+		ofProtonect2* protonect2 = new ofProtonect2();
+		int cnt = protonect2->getDeviceCount();
+		delete protonect2;
+		cnt_static = cnt;
+	}
+	return cnt_static;
 }
 
 void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex, int oclDeviceIndex)

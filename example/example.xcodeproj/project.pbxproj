@@ -846,7 +846,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
-					"/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
+					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
@@ -933,7 +933,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
-					"/Users/rhizomacbookproretina4/Documents/work/of_v0.8.4_osx_release/addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
+					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
