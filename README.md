@@ -25,7 +25,7 @@ Notes:
 - The requirement is almost same as ofxKinectV2 https://github.com/ofTheo/ofxKinectV2
   - Check the notes above first.
 - Tested environment : 
-  - MacBookProRetina (Mid2012) + OSX Yosemite (v 10.10.1) + oF v0.8.4 + Kinect V2 (retail version)
+  - MacBookProRetina (Mid2012) + OSX Yosemite (v 10.10.1) + oF v0.8.4 + Kinect V2 x2 (retail version)
   - Some depth packets are dropped when connecting two Kinect V2 to built-in USB3 ports.
   - Works well when connecting one Kinect V2 to built-in port meanwhile another Kinect V2 to CalDigit.
-  
+- Only tested on OSX
