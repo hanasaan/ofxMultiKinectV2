@@ -27,9 +27,9 @@ public:
     const vector<char>& getIrBuffer() const {
         return rawir;
     }
-	const vector<char>& getDepthBuffer() const {
-		return rawdepth;
-	}
+    const vector<char>& getDepthBuffer() const {
+        return rawdepth;
+    }
     int getDeviceCount() {return freenect2.enumerateDevices();}
     libfreenect2::Freenect2Device::ColorCameraParams getColorCameraParams() {
         if (!dev) {return;}
@@ -48,5 +48,5 @@ protected:
     bool bOpen;
     vector<char> jpeg;
     vector<char> rawir;
-	vector<char> rawdepth;
+    vector<char> rawdepth;
 };

@@ -30,15 +30,15 @@ public:
     bool isFrameNew();
 
     ofPixels& getColorPixelsRef();
-	ofFloatPixels& getDepthPixelsRef();
-	ofFloatPixels& getIrPixelsRef();
-	
+    ofFloatPixels& getDepthPixelsRef();
+    ofFloatPixels& getIrPixelsRef();
+    
     const vector<char>& getJpegBuffer();
     
     void setEnableJpegDecode(bool b) {bEnableJpegDecode = b;}
     bool isEnableJpegDecode() {return bEnableJpegDecode;}
-	
-	ofProtonect2* getProtonect() {return protonect2;}
+    
+    ofProtonect2* getProtonect() {return protonect2;}
 protected:
     void threadedFunction();
     
@@ -55,16 +55,16 @@ protected:
     vector<char> jpegFront;
     vector<char> jpegBack;
     
-	ofFloatPixels irPix;
-	ofFloatPixels irPixFront;
-	ofFloatPixels irPixBack;
-	
-	ofFloatPixels depthPix;
-	ofFloatPixels depthPixFront;
-	ofFloatPixels depthPixBack;
-	
-	ofProtonect2* protonect2;
-	
+    ofFloatPixels irPix;
+    ofFloatPixels irPixFront;
+    ofFloatPixels irPixBack;
+    
+    ofFloatPixels depthPix;
+    ofFloatPixels depthPixFront;
+    ofFloatPixels depthPixBack;
+    
+    ofProtonect2* protonect2;
+    
     int lastFrameNo;
     
 #ifdef USE_OFX_TURBO_JPEG

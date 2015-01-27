@@ -12,7 +12,7 @@ using namespace libfreenect2;
 ofxMultiKinectV2::ofxMultiKinectV2()
 {
     protonect2 = new ofProtonect2();
-	
+    
     bEnableJpegDecode = true;
     bOpened = false;
     bNewBuffer = false;
@@ -29,14 +29,14 @@ ofxMultiKinectV2::~ofxMultiKinectV2()
 
 int ofxMultiKinectV2::getDeviceCount()
 {
-	static int cnt_static = -1;
-	if (cnt_static == -1) {
-		ofProtonect2* protonect2 = new ofProtonect2();
-		int cnt = protonect2->getDeviceCount();
-		delete protonect2;
-		cnt_static = cnt;
-	}
-	return cnt_static;
+    static int cnt_static = -1;
+    if (cnt_static == -1) {
+        ofProtonect2* protonect2 = new ofProtonect2();
+        int cnt = protonect2->getDeviceCount();
+        delete protonect2;
+        cnt_static = cnt;
+    }
+    return cnt_static;
 }
 
 void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex, int oclDeviceIndex)
@@ -49,7 +49,7 @@ void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex, in
     
     int mode = 0;
     mode |= enableColor ? libfreenect2::Frame::Color : 0;
-	mode |= enableIr ? libfreenect2::Frame::Ir | libfreenect2::Frame::Depth : 0;
+    mode |= enableIr ? libfreenect2::Frame::Ir | libfreenect2::Frame::Depth : 0;
     
     bool ret = protonect2->open(deviceIndex, mode, oclDeviceIndex);
     
@@ -78,13 +78,13 @@ void ofxMultiKinectV2::threadedFunction()
     while(isThreadRunning()){
         protonect2->update();
         jpegBack = protonect2->getJpegBuffer();
-		
-		if (protonect2->getIrBuffer().size() == 512 * 424 * 4) {
-			irPixBack.setFromPixels(reinterpret_cast<const float*>(&protonect2->getIrBuffer().front()), 512, 424, 1);
-		}
-		if (protonect2->getDepthBuffer().size() == 512 * 424 * 4) {
-			depthPixBack.setFromPixels(reinterpret_cast<const float*>(&protonect2->getDepthBuffer().front()), 512, 424, 1);
-		}
+        
+        if (protonect2->getIrBuffer().size() == 512 * 424 * 4) {
+            irPixBack.setFromPixels(reinterpret_cast<const float*>(&protonect2->getIrBuffer().front()), 512, 424, 1);
+        }
+        if (protonect2->getDepthBuffer().size() == 512 * 424 * 4) {
+            depthPixBack.setFromPixels(reinterpret_cast<const float*>(&protonect2->getDepthBuffer().front()), 512, 424, 1);
+        }
         if (bEnableJpegDecode && jpegBack.size()) {
             ofBuffer tmp;
             tmp.set(&jpegBack.front(), jpegBack.size());
@@ -98,7 +98,7 @@ void ofxMultiKinectV2::threadedFunction()
         lock();
         jpegFront.swap(jpegBack);
         irPixFront.swap(irPixBack);
-		depthPixFront.swap(depthPixBack);
+        depthPixFront.swap(depthPixBack);
         if (bEnableJpegDecode && jpegBack.size()) {
             colorPixFront.swap(colorPixBack);
         }
@@ -119,8 +119,8 @@ void ofxMultiKinectV2::update()
         lock();
         bNewBuffer = false;
         jpeg = jpegFront;
-		irPix = irPixFront;
-		depthPix = depthPixFront;
+        irPix = irPixFront;
+        depthPix = depthPixFront;
         if (bEnableJpegDecode) {
             colorPix = colorPixFront;
         }
@@ -150,11 +150,11 @@ ofPixels& ofxMultiKinectV2::getColorPixelsRef() {
 }
 
 ofFloatPixels& ofxMultiKinectV2::getDepthPixelsRef() {
-	return depthPix;
+    return depthPix;
 }
 
 ofFloatPixels& ofxMultiKinectV2::getIrPixelsRef() {
-	return irPix;
+    return irPix;
 }
 
 const vector<char>& ofxMultiKinectV2::getJpegBuffer() {

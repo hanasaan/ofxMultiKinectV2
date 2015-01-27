@@ -129,21 +129,21 @@ ofPacketPipeline::ofPacketPipeline(int cldeviceindex)
     
     rgb_processor_ = new PassThroughRgbPacketProcessor();
 
-	string binpath = ofToDataPath("");
-	OpenCLDepthPacketProcessor* depth_processor = new OpenCLDepthPacketProcessor("src/opencl_depth_packet_processor.cl", cldeviceindex);
-	depth_processor->load11To16LutFromFile("11to16.bin");
-	depth_processor->loadXTableFromFile("xTable.bin");
-	depth_processor->loadZTableFromFile("zTable.bin");
-	
-	libfreenect2::DepthPacketProcessor::Config config;
-	config.MinDepth = 0.4f;
-	config.MaxDepth = 10.0f;
-	config.EnableBilateralFilter = true;
-	config.EnableEdgeAwareFilter = false;
-	depth_processor->setConfiguration(config);
-	
-	depth_processor_ = depth_processor;
-	
+    string binpath = ofToDataPath("");
+    OpenCLDepthPacketProcessor* depth_processor = new OpenCLDepthPacketProcessor("src/opencl_depth_packet_processor.cl", cldeviceindex);
+    depth_processor->load11To16LutFromFile("11to16.bin");
+    depth_processor->loadXTableFromFile("xTable.bin");
+    depth_processor->loadZTableFromFile("zTable.bin");
+    
+    libfreenect2::DepthPacketProcessor::Config config;
+    config.MinDepth = 0.4f;
+    config.MaxDepth = 10.0f;
+    config.EnableBilateralFilter = true;
+    config.EnableEdgeAwareFilter = false;
+    depth_processor->setConfiguration(config);
+    
+    depth_processor_ = depth_processor;
+    
     async_rgb_processor_ = new AsyncPacketProcessor<RgbPacket>(rgb_processor_);
     async_depth_processor_ = new AsyncPacketProcessor<DepthPacket>(depth_processor_);
     
@@ -239,15 +239,15 @@ void ofProtonect2::update() {
             std::copy(irFrame->data, irFrame->data + sz, &rawir.front());
         }
     }
-	{
-		libfreenect2::Frame *depthFrame = frames[libfreenect2::Frame::Depth];
-		if (depthFrame) {
-			int sz = depthFrame->width * depthFrame->height * depthFrame->bytes_per_pixel;
-			rawdepth.resize(sz);
-			std::copy(depthFrame->data, depthFrame->data + sz, &rawdepth.front());
-		}
-	}
-	
+    {
+        libfreenect2::Frame *depthFrame = frames[libfreenect2::Frame::Depth];
+        if (depthFrame) {
+            int sz = depthFrame->width * depthFrame->height * depthFrame->bytes_per_pixel;
+            rawdepth.resize(sz);
+            std::copy(depthFrame->data, depthFrame->data + sz, &rawdepth.front());
+        }
+    }
+    
     listener->release(frames);
 }
 
