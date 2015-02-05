@@ -115,6 +115,13 @@ public:
         ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate()), 10, 20);
         ofDrawBitmapStringHighlight("Device Count : " + ofToString(ofxMultiKinectV2::getDeviceCount()), 10, 40);
     }
+    
+    void keyPressed(int key)
+    {
+        if (key == ' ') {
+            kinect0.setEnableFlipBuffer(!kinect0.isEnableFlipBuffer());
+        }
+    }
 };
 
 //========================================================================

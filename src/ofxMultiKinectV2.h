@@ -37,6 +37,8 @@ public:
     
     void setEnableJpegDecode(bool b) {bEnableJpegDecode = b;}
     bool isEnableJpegDecode() {return bEnableJpegDecode;}
+    void setEnableFlipBuffer(bool b) {bEnableFlipBuffer = b;}
+    bool isEnableFlipBuffer() {return bEnableFlipBuffer;}
     
     ofProtonect2* getProtonect() {return protonect2;}
 protected:
@@ -46,6 +48,7 @@ protected:
     bool bOpened;
     bool bNewBuffer;
     bool bNewFrame;
+	bool bEnableFlipBuffer;
 
     ofPixels colorPix;
     ofPixels colorPixFront;

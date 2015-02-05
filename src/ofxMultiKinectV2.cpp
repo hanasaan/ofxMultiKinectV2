@@ -13,6 +13,7 @@ ofxMultiKinectV2::ofxMultiKinectV2()
 {
     protonect2 = new ofProtonect2();
     
+    bEnableFlipBuffer = false;
     bEnableJpegDecode = true;
     bOpened = false;
     bNewBuffer = false;
@@ -79,11 +80,18 @@ void ofxMultiKinectV2::threadedFunction()
         protonect2->update();
         jpegBack = protonect2->getJpegBuffer();
         
+        float ts = ofGetElapsedTimef();
         if (protonect2->getIrBuffer().size() == 512 * 424 * 4) {
             irPixBack.setFromPixels(reinterpret_cast<const float*>(&protonect2->getIrBuffer().front()), 512, 424, 1);
+            if (bEnableFlipBuffer) {
+                irPixBack.mirror(false, true);
+            }
         }
         if (protonect2->getDepthBuffer().size() == 512 * 424 * 4) {
             depthPixBack.setFromPixels(reinterpret_cast<const float*>(&protonect2->getDepthBuffer().front()), 512, 424, 1);
+            if (bEnableFlipBuffer) {
+                depthPixBack.mirror(false, true);
+            }
         }
         if (bEnableJpegDecode && jpegBack.size()) {
             ofBuffer tmp;
@@ -93,7 +101,12 @@ void ofxMultiKinectV2::threadedFunction()
 #else
             ofLoadImage(colorPixBack, tmp);
 #endif
+            if (bEnableFlipBuffer) {
+                colorPixBack.mirror(false, true);
+            }
         }
+        float t = ofGetElapsedTimef() - ts;
+        cerr << 1000.0*t << "ms" << endl;
         
         lock();
         jpegFront.swap(jpegBack);
