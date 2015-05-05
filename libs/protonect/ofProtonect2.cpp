@@ -130,7 +130,9 @@ ofPacketPipeline::ofPacketPipeline(int cldeviceindex)
     rgb_processor_ = new PassThroughRgbPacketProcessor();
 
     string binpath = ofToDataPath("");
-    OpenCLDepthPacketProcessor* depth_processor = new OpenCLDepthPacketProcessor("src/opencl_depth_packet_processor.cl", cldeviceindex);
+    OpenCLDepthPacketProcessor* depth_processor = new OpenCLDepthPacketProcessor(cldeviceindex);
+    //OpenGLDepthPacketProcessor* depth_processor = new OpenGLDepthPacketProcessor(cldeviceindex);
+    //CpuDepthPacketProcessor* depth_processor = new CpuDepthPacketProcessor();
     depth_processor->load11To16LutFromFile("11to16.bin");
     depth_processor->loadXTableFromFile("xTable.bin");
     depth_processor->loadZTableFromFile("zTable.bin");
@@ -201,7 +203,6 @@ bool ofProtonect2::open(int deviceIndex, int mode, int clindex)
     
     dev->setColorFrameListener(listener);
     dev->setIrAndDepthFrameListener(listener);
-    dev->prepareStart();
 
     bOpen = true;
     return true;
