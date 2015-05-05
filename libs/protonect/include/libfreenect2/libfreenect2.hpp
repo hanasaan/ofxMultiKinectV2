@@ -45,6 +45,30 @@ public:
   struct ColorCameraParams
   {
     float fx, fy, cx, cy;
+
+    float shift_d, shift_m;
+
+    float mx_x3y0; // xxx
+    float mx_x0y3; // yyy
+    float mx_x2y1; // xxy
+    float mx_x1y2; // yyx
+    float mx_x2y0; // xx
+    float mx_x0y2; // yy
+    float mx_x1y1; // xy
+    float mx_x1y0; // x
+    float mx_x0y1; // y
+    float mx_x0y0; // 1
+
+    float my_x3y0; // xxx
+    float my_x0y3; // yyy
+    float my_x2y1; // xxy
+    float my_x1y2; // yyx
+    float my_x2y0; // xx
+    float my_x0y2; // yy
+    float my_x1y1; // xy
+    float my_x1y0; // x
+    float my_x0y1; // y
+    float my_x0y0; // 1
   };
 
   struct IrCameraParams
@@ -64,7 +88,6 @@ public:
   virtual void setColorFrameListener(libfreenect2::FrameListener* rgb_frame_listener) = 0;
   virtual void setIrAndDepthFrameListener(libfreenect2::FrameListener* ir_frame_listener) = 0;
 
-  virtual void prepareStart() = 0;
   virtual void start() = 0;
   virtual void stop() = 0;
   virtual void close() = 0;
