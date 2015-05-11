@@ -30,8 +30,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <string>
-
 #include <libfreenect2/config.h>
 #include <libfreenect2/frame_listener.hpp>
 #include <libfreenect2/packet_processor.h>
@@ -46,8 +44,6 @@ struct LIBFREENECT2_API DepthPacket
   size_t buffer_length;
 };
 
-// explicit instantiation and export to make vsc++ happy
-template class LIBFREENECT2_API PacketProcessor<DepthPacket>; 
 typedef PacketProcessor<DepthPacket> BaseDepthPacketProcessor;
 
 class LIBFREENECT2_API DepthPacketProcessor : public BaseDepthPacketProcessor
@@ -112,6 +108,7 @@ protected:
   libfreenect2::FrameListener *listener_;
 };
 
+#ifdef LIBFREENECT2_WITH_OPENGL_SUPPORT
 class OpenGLDepthPacketProcessorImpl;
 
 class LIBFREENECT2_API OpenGLDepthPacketProcessor : public DepthPacketProcessor
@@ -139,6 +136,7 @@ public:
 private:
   OpenGLDepthPacketProcessorImpl *impl_;
 };
+#endif // LIBFREENECT2_WITH_OPENGL_SUPPORT
 
 // TODO: push this to some internal namespace
 // use pimpl to hide opencv dependency
@@ -176,7 +174,7 @@ class OpenCLDepthPacketProcessorImpl;
 class LIBFREENECT2_API OpenCLDepthPacketProcessor : public DepthPacketProcessor
 {
 public:
-	OpenCLDepthPacketProcessor(const std::string& source, const int deviceId = -1);
+  OpenCLDepthPacketProcessor(const int deviceId = -1);
   virtual ~OpenCLDepthPacketProcessor();
   virtual void setConfiguration(const libfreenect2::DepthPacketProcessor::Config &config);
 
