@@ -13,6 +13,7 @@
 		6D22772A1A762FA100BEF410 /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2277281A762F8E00BEF410 /* libturbojpeg.dylib */; };
 		6D22772B1A762FA900BEF410 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6D2277281A762F8E00BEF410 /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6D2277311A7663F100BEF410 /* timer_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D22772F1A7663F100BEF410 /* timer_util.cpp */; };
+		6D2BEB081B00DD860023BA40 /* registration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D2BEB071B00DD850023BA40 /* registration.cpp */; };
 		6D7CBE9619F0305D004392D0 /* ofxMultiKinectV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE4619F0305D004392D0 /* ofxMultiKinectV2.cpp */; };
 		6D7CBE9719F0305D004392D0 /* usb-1.0.0-superspeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D7CBE6019F0305D004392D0 /* usb-1.0.0-superspeed.a */; };
 		6D7CBE9819F0305D004392D0 /* ofProtonect2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CBE7A19F0305D004392D0 /* ofProtonect2.cpp */; };
@@ -93,6 +94,7 @@
 		6D22772D1A76313900BEF410 /* cl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cl.hpp; sourceTree = "<group>"; };
 		6D22772F1A7663F100BEF410 /* timer_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer_util.cpp; sourceTree = "<group>"; };
 		6D2277301A7663F100BEF410 /* timer_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer_util.h; sourceTree = "<group>"; };
+		6D2BEB071B00DD850023BA40 /* registration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = registration.cpp; sourceTree = "<group>"; };
 		6D7CBE4619F0305D004392D0 /* ofxMultiKinectV2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMultiKinectV2.cpp; sourceTree = "<group>"; };
 		6D7CBE4719F0305D004392D0 /* ofxMultiKinectV2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMultiKinectV2.h; sourceTree = "<group>"; };
 		6D7CBE4B19F0305D004392D0 /* libfreenect2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libfreenect2.h; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 		6D7CBE7C19F0305D004392D0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6D2BEB071B00DD850023BA40 /* registration.cpp */,
 				6D22771A1A762C5000BEF410 /* opencl_depth_packet_processor.cpp */,
 				6D7CBE7D19F0305D004392D0 /* command_transaction.cpp */,
 				6D7CBE7F19F0305D004392D0 /* depth_packet_processor.cpp */,
@@ -682,6 +685,7 @@
 				6D7CBE9F19F0305D004392D0 /* frame_listener_impl.cpp in Sources */,
 				6D7CBEA219F0305D004392D0 /* resource.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				6D2BEB081B00DD860023BA40 /* registration.cpp in Sources */,
 				6D7CBEA119F0305D004392D0 /* packet_pipeline.cpp in Sources */,
 				6D2277311A7663F100BEF410 /* timer_util.cpp in Sources */,
 				6D7CBE9D19F0305D004392D0 /* double_buffer.cpp in Sources */,
@@ -849,7 +853,7 @@
 					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
+				USER_HEADER_SEARCH_PATHS = "../libs/libfreenect2/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -936,7 +940,7 @@
 					"../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../ofxCv/libs/ofxCv/include/ ../libs/libfreenect2/include/ ../../ofxCv/libs/CLD/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/ ../../../addons/ofxOpenCv/libs/opencv/include/";
+				USER_HEADER_SEARCH_PATHS = "../libs/libfreenect2/include/ ../libs/libusb/include/ ../../ofxTurboJpeg/libs/turbo-jpeg/include/ ../libs/protonect/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

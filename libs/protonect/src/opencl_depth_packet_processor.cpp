@@ -28,7 +28,7 @@
 #include <libfreenect2/resource.h>
 #include <libfreenect2/protocol/response.h>
 
-#include <opencv2/opencv.hpp>
+#include "timer_util.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -40,6 +40,7 @@
 
 #define __CL_ENABLE_EXCEPTIONS
 #ifdef __APPLE__
+#include <math.h>
 #include <OpenCL/cl.hpp>
 #else
 #define CL_USE_DEPRECATED_OPENCL_1_1_APIS
@@ -541,12 +542,12 @@ public:
 
   void startTiming()
   {
-    timing_current_start = cv::getTickCount();
+    timing_current_start = getCurrentMillis();
   }
 
   void stopTiming()
   {
-    timing_acc += (cv::getTickCount() - timing_current_start) / cv::getTickFrequency();
+    timing_acc += (getCurrentMillis() - timing_current_start) / 1000.0;
     timing_acc_n += 1.0;
 
     if(timing_acc_n >= 100.0)
