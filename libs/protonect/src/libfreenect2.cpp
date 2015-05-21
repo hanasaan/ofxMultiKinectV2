@@ -124,6 +124,10 @@ public:
   };
   typedef std::vector<UsbDeviceWithSerial> UsbDeviceVector;
   typedef std::vector<Freenect2DeviceImpl *> DeviceVector;
+    
+    static bool asc(const Freenect2Impl::UsbDeviceWithSerial& left, const Freenect2Impl::UsbDeviceWithSerial& right ) {
+        return left.serial < right.serial;
+    }
 
   bool has_device_enumeration_;
   UsbDeviceVector enumerated_devices_;
@@ -289,6 +293,13 @@ public:
         libusb_unref_device(dev);
       }
     }
+      
+      {
+          std::sort(enumerated_devices_.begin(), enumerated_devices_.end(), asc);
+          for (const UsbDeviceWithSerial& dev : enumerated_devices_) {
+              std::cout << "[Freenect2Impl] [sorted] found valid Kinect v2 " << PrintBusAndDevice(dev.dev) << " with serial " << dev.serial << std::endl;
+          }
+      }
 
     libusb_free_device_list(device_list, 0);
     has_device_enumeration_ = true;
