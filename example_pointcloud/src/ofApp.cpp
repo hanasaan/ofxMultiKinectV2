@@ -4,10 +4,6 @@
 //========================================================================
 class ofApp : public ofBaseApp{
     ofxMultiKinectV2 kinect0;
-    ofTexture depthTex0;
-    ofTexture irTex0;
-    
-    bool process_occlusion;
     
     ofEasyCam ecam;
     ofVboMesh mesh;
@@ -15,8 +11,6 @@ public:
     
     void setup()
     {
-        process_occlusion = false;
-        
         ofSetVerticalSync(true);
         ofSetFrameRate(60);
         
@@ -40,11 +34,6 @@ public:
     void update() {
         kinect0.update();
         if (kinect0.isFrameNew()) {
-            depthTex0.loadData(kinect0.getDepthPixelsRef());
-            irTex0.loadData(kinect0.getIrPixelsRef());
-            
-            depthTex0.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
-            
             mesh.clear();
             {
                 int step = 2;
@@ -73,7 +62,7 @@ public:
     {
         ofClear(0);
         
-        if (depthTex0.isAllocated()) {
+        if (mesh.getVertices().size()) {
             ofPushStyle();
             glPointSize(2);
             ecam.begin();
@@ -88,13 +77,6 @@ public:
         
         ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate()), 10, 20);
         ofDrawBitmapStringHighlight("Device Count : " + ofToString(ofxMultiKinectV2::getDeviceCount()), 10, 40);
-    }
-
-    void keyPressed(int key)
-    {
-        if (key == 'd') {
-            process_occlusion =  !process_occlusion;
-        }
     }
 };
 
