@@ -3,6 +3,9 @@ ofxMultiKinectV2
 
 Connecting more than one Kinect For Windows V2 sensors to one Mac.
 
+### For openFrameworks 0.9.0, please use [dev090 branch](https://github.com/hanasaan/ofxMultiKinectV2/tree/dev090)
+
+
 - Based on the excellent work by the https://github.com/OpenKinect/libfreenect2 team ( @JoshBlake @floe and @christiankerl plus others )
 - Also based on the excellent work by Theo Watson's ofxKinectV2 https://github.com/ofTheo/ofxKinectV2
 - Supports only OSX.
