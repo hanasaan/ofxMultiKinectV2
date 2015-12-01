@@ -7,7 +7,7 @@
 #pragma once
 #include "ofMain.h"
 
-#define USE_OFX_TURBO_JPEG
+//#define USE_OFX_TURBO_JPEG
 
 #ifdef USE_OFX_TURBO_JPEG
 #include "ofxTurboJpeg.h"
