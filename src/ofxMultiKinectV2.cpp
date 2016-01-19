@@ -112,7 +112,7 @@ void ofxMultiKinectV2::threadedFunction()
         jpegFront.swap(jpegBack);
         irPixFront.swap(irPixBack);
         depthPixFront.swap(depthPixBack);
-        if (bEnableJpegDecode && jpegBack.size()) {
+        if (bEnableJpegDecode && colorPixBack.isAllocated()) {
             colorPixFront.swap(colorPixBack);
         }
         bNewBuffer = true;
