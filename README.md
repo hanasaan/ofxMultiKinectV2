@@ -45,6 +45,8 @@ Add these libraries/frameworks to **Build Phases > Copy Files** and make sure th
   - MacBookProRetina (Mid2012) + OSX Yosemite (v 10.10.1) + oF v0.8.4 + Kinect V2 x2 (retail version)  
 	  - Some depth packets are dropped when connecting two Kinect V2 to built-in USB3 ports.
 	  - Works well when connecting one Kinect V2 to built-in port meanwhile another Kinect V2 to CalDigit.
-  - Also tested on MacBookProRetina (Mid2014) + OSX Yosemite (v 10.10.5) + oF pre-0.9 + KinectV2 x2 (retail + dev version)  
+  - MacBookProRetina (Mid2014) + OSX Yosemite (v 10.10.5) + oF pre-0.9 + KinectV2 x2 (retail + dev version)
+  - Mac Pro + OSX Mavericks (v 10.9.5) + oF v 0.9.0 + Kinect V2 x5
+  	- On Mac Pro + Yosemite or El Capitan, currently this addon will not work! Please downgrade OS to Mavericks if you want to use this addon on Mac Pro.
 - If you're not seeing data out of the Kinect and see `Failed to reset Kinect` messages in the console,
   see a workaround in [this issue from libfreenect2](https://github.com/OpenKinect/libfreenect2/issues/31#issuecomment-58154847)
