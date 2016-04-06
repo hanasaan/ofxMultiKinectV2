@@ -158,6 +158,12 @@ void ofProtonect2::start() {
     
     std::cout << "device serial: " << dev->getSerialNumber() << std::endl;
     std::cout << "device firmware: " << dev->getFirmwareVersion() << std::endl;
+
+    if( ofGetLogLevel() == OF_LOG_VERBOSE ){
+        libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
+    }else{
+        libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Warning));
+    }
 }
 
 void ofProtonect2::update() {
@@ -191,12 +197,6 @@ void ofProtonect2::update() {
     }
     
     listener->release(frames);
-    
-    if( ofGetLogLevel() == OF_LOG_VERBOSE ){
-        libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
-    }else{
-        libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Warning));
-    }
 }
 
 void ofProtonect2::close() {
