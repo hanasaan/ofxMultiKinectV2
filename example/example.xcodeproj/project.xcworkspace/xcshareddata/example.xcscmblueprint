@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "88B9FC151DC341353CD8953242CE29BE15BF959C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E5D2BF07F1BD4888430F12ADB292E9A68C0BFC76" : 0,
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DCFC8367-C023-4AC8-AB92-51A8921919E1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E5D2BF07F1BD4888430F12ADB292E9A68C0BFC76" : "ofxTurboJpeg\/",
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : "ofxMultiKinectV2\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "example",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "example\/example.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:hanasaan\/ofxMultiKinectV2",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88B9FC151DC341353CD8953242CE29BE15BF959C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:armadillu\/ofxTurboJpeg",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E5D2BF07F1BD4888430F12ADB292E9A68C0BFC76"
+    }
+  ]
+}

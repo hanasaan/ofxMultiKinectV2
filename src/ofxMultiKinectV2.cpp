@@ -8,6 +8,54 @@
 
 using namespace libfreenect2;
 
+class KinectV2DeviceManager
+{
+public:
+    static KinectV2DeviceManager& getManager()
+    {
+        static KinectV2DeviceManager o;
+        if (!o.initialized) {
+            o.init();
+        }
+        
+        return o;
+    }
+    
+    void forceInit() {
+        init();
+    }
+    
+    int getDeviceCount() const {
+        return device_count;
+    }
+    
+    const vector<string>& getSerials() const {
+        return serials;
+    }
+
+private:
+    vector<string> serials;
+    int device_count = -1;
+    bool initialized = false;
+    KinectV2DeviceManager() {}
+    
+    void init()
+    {
+        libfreenect2::Freenect2 freenect2;
+        device_count = freenect2.enumerateDevices();
+        serials.clear();
+        for (int i = 0; i < device_count; i++){
+            string serial = freenect2.getDeviceSerialNumber(i);
+            serials.push_back(serial);
+        }
+        std::sort(serials.begin(), serials.end());
+        for (auto&p : serials) {
+            ofLogVerbose("KinectV2DeviceManager") << "sorted device id : " << p;
+        }
+        initialized = true;
+    }
+};
+
 //------------------------------------------
 ofxMultiKinectV2::ofxMultiKinectV2()
 {
@@ -30,14 +78,7 @@ ofxMultiKinectV2::~ofxMultiKinectV2()
 
 int ofxMultiKinectV2::getDeviceCount()
 {
-    static int cnt_static = -1;
-    if (cnt_static == -1) {
-        ofProtonect2* protonect2 = new ofProtonect2();
-        int cnt = protonect2->getDeviceCount();
-        delete protonect2;
-        cnt_static = cnt;
-    }
-    return cnt_static;
+    return KinectV2DeviceManager::getManager().getDeviceCount();
 }
 
 void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex, int oclDeviceIndex)
@@ -52,7 +93,8 @@ void ofxMultiKinectV2::open(bool enableColor, bool enableIr, int deviceIndex, in
     mode |= enableColor ? libfreenect2::Frame::Color : 0;
     mode |= enableIr ? libfreenect2::Frame::Ir | libfreenect2::Frame::Depth : 0;
     
-    bool ret = protonect2->open(deviceIndex, mode, oclDeviceIndex);
+    bool ret = protonect2->open(KinectV2DeviceManager::getManager().getSerials()[deviceIndex],
+                                mode, oclDeviceIndex);
     
     if (!ret) {
         return;

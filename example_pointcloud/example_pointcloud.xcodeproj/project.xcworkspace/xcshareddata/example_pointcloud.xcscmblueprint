@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "88B9FC151DC341353CD8953242CE29BE15BF959C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E5D2BF07F1BD4888430F12ADB292E9A68C0BFC76" : 0,
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "047FBBDD-8778-4E77-B5B0-F84A39782A41",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E5D2BF07F1BD4888430F12ADB292E9A68C0BFC76" : "ofxTurboJpeg\/",
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : "ofxMultiKinectV2\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "example_pointcloud",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "example_pointcloud\/example_pointcloud.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:hanasaan\/ofxMultiKinectV2",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88B9FC151DC341353CD8953242CE29BE15BF959C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:armadillu\/ofxTurboJpeg",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E5D2BF07F1BD4888430F12ADB292E9A68C0BFC76"
+    }
+  ]
+}

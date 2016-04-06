@@ -63,6 +63,3 @@ Temporary Items
 *.exe
 *.out
 *.app
-
-/ParticleAnimation/bin/data/bvh_dummy/*
-/ParticleAnimation/bin/data/maxpatches

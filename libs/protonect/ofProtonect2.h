@@ -8,15 +8,12 @@
 
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/frame_listener_impl.h>
-#include <libfreenect2/threading.h>
 #include <libfreenect2/packet_pipeline.h>
-#include <libfreenect2/protocol/response.h>
 
 class ofProtonect2 {
 public:
-    ofProtonect2() :
-    dev(NULL), listener(NULL), bOpen(false), pipeline(NULL) {}
-    bool open(int deviceIndex = 0, int mode = libfreenect2::Frame::Depth | libfreenect2::Frame::Ir | libfreenect2::Frame::Color, int clindex = -1);
+    ofProtonect2();
+    bool open(const std::string &serial, int mode = libfreenect2::Frame::Depth | libfreenect2::Frame::Ir | libfreenect2::Frame::Color, int clindex = -1);
     void start(); // controllig this is important for avoiding interference...?
     void update();
     void close();
