@@ -76,6 +76,15 @@ ofxMultiKinectV2::~ofxMultiKinectV2()
     delete protonect2;
 }
 
+bool ofxMultiKinectV2::isOpen()
+{
+   if (protonect2 != NULL)
+   {
+       return protonect2->isOpen();
+   }
+    
+    return false;
+}
 int ofxMultiKinectV2::getDeviceCount()
 {
     return KinectV2DeviceManager::getManager().getDeviceCount();
