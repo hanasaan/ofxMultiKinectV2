@@ -148,7 +148,7 @@ void ofxMultiKinectV2::threadedFunction()
             ofBuffer tmp;
             tmp.set(&jpegBack.front(), jpegBack.size());
 #ifdef USE_OFX_TURBO_JPEG
-            turbo.load(tmp, colorPixBack);
+            turbo.load(colorPixBack, tmp);
 #else
             ofLoadImage(colorPixBack, tmp);
 #endif
