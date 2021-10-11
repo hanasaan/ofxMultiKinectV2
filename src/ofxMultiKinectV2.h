@@ -41,7 +41,7 @@ public:
     bool isEnableFlipBuffer() {return bEnableFlipBuffer;}
     
     ofProtonect2* getProtonect() {return protonect2;}
-    
+    bool isOpen();
     float getDistanceAt(int x, int y);
     ofVec3f getWorldCoordinateAt(int x, int y);
     ofVec3f getWorldCoordinateAt(int x, int y, float z);
